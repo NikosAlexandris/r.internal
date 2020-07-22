@@ -195,10 +195,11 @@ def main():
 
             else:
                 if os.path.isdir(link) and not unlinking:
-                    g.message(f'Sub-element \'{os.path.join(element, target_raster_map)}\' already exists', flags='w')
+                    element_exists = MESSAGE_SUB_ELEMENT_EXISTS.format(
+                            element=os.path.join(element, target_raster_map)
+                    )
+                    g.message(element_exists, flags='w')
                 if os.path.isdir(link) and unlinking:
-                    print("Link:", link)
-                    print()
                     unlink_directory(
                             directory=link,
                             elements_to_unlink=elements_to_unlink,
@@ -212,7 +213,10 @@ def main():
 
                 if not unlinking:
                     if os.path.isdir(link) and os.path.isfile(cell_misc_link):
-                        g.message(f'Meta-element \'{os.path.join(target_raster_map, cell_misc_element_basename)}\' already exists', flags='w')
+                        element_exists = MESSAGE_META_ELEMENT_EXISTS.format(
+                                element=os.path.join(target_raster_map, cell_misc_element_basename)
+                        )
+                        g.message(element_exists, flags='w')
 
                     if not os.path.isfile(cell_misc_link):  # if hardlink does not exist
                         link_to_target(
