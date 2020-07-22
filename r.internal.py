@@ -170,18 +170,13 @@ def main():
                             g.message(f'Element \'{element}\' already exists', flags='w')
 
                     if not os.path.isfile(link):  # if hardlink does not exist
-                        g.message(f'> Linking \'{target}\' to \'{link}\'', flags='v')
-                        if not dry_run:
-                            if softlinking:
-                                flag = '-s'
-                            else:
-                                flag = ''
-                            command = f'ln {flag} {target} {link}'
-                            command = shlex.split(command)
-                            try:
-                                subprocess.run(command)
-                            except subprocess.CalledProcessError as e:
-                                grass.fatal(e.output)
+                        link_to_target(
+                                target=target,
+                                link=link,
+                                dry_run=dry_run,
+                                softlinking=softlinking,
+                        )
+                        g.message('\n', flags='v')
 
                 if unlinking:
                     target_inode = os.stat(target).st_ino
