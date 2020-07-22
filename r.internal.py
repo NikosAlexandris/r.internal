@@ -236,21 +236,12 @@ def main():
 
 
                 elif unlinking:
-                    target_inode = os.stat(cell_misc_element).st_ino
-                    target_inode_hardlinks = os.stat(cell_misc_element).st_nlink
-
-                    if os.path.isfile(cell_misc_link):
-                        if not os.path.islink(cell_misc_link) and target_inode_hardlinks == 1 :
-                            g.message(f'The meta-element \'{cell_misc_link}\' is the only hardlink for the inode \'{target_inode}\'. Will NOT unlink!', flags='i')
-                        elif os.path.islink(cell_misc_link) or target_inode_hardlinks > 1:
-                            # g.message(f'Adding \'{cell_misc_link}\' to list of elements to unlink!', flags='w')
-                            if not dry_run:
-                                elements_to_unlink.append(cell_misc_link)
-
-
-                    if os.path.isdir(cell_misc_link):
-                        # g.message(f'There is no raster map file \'{link}\' to remove', flags='v')
-                        g.message(f'The element {cell_misc_link} is a directory...', flags='v')
+                    unlink_for_target(
+                            target=cell_misc_element,
+                            link=cell_misc_link,
+                            dry_run=dry_run,
+                            elements_to_unlink=elements_to_unlink,
+                    )
 
     # unlinking
     if elements_to_unlink:
