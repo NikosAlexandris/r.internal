@@ -186,7 +186,7 @@ def main():
                 g.message(f'+ Creating sub-element directory \'{link}\'', flags='v')
                 if not dry_run:
                     pathlib.Path.mkdir(link, parents=True)
-                    command = f'touch {link}/r.InternalLink'
+                    command = f'touch {link}/r.InternalLink'  # Chances this already exists?
                     command = shlex.split(command)
                     try:
                         subprocess.run(command)
@@ -224,7 +224,6 @@ def main():
                                 softlinking=softlinking,
                         )
                         g.message('\n', flags='v')
-
 
                 elif unlinking:
                     unlink_for_target(
