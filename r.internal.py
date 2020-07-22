@@ -179,19 +179,12 @@ def main():
                         g.message('\n', flags='v')
 
                 if unlinking:
-                    target_inode = os.stat(target).st_ino
-                    target_inode_hardlinks = os.stat(target).st_nlink
-
-                    if os.path.isfile(link):  # exclude directories
-                        if os.path.islink(link) or target_inode_hardlinks > 1:
-                            if not dry_run:
-                                elements_to_unlink.append(link)
-
-                        elif not os.path.islink(link) and target_inode_hardlinks == 1:
-                            g.message(f'The element/map \'{link}\' is the only hardlink for the inode \'{target_inode}\'. Will NOT unlink!', flags='i')
-
-                    else:
-                        g.message(f'There is no raster map file \'{link}\' to remove', flags='v')
+                    unlink_for_target(
+                            target=target,
+                            link=link,
+                            dry_run=dry_run,
+                            elements_to_unlink=elements_to_unlink,
+                    )
 
         # ----------------------------------------------------------------------
         if element == CELL_MISC:  # 'cell_misc' is a directory
