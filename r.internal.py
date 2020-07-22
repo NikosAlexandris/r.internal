@@ -214,18 +214,14 @@ def main():
                 if os.path.isdir(link) and not unlinking:
                     g.message(f'Sub-element \'{os.path.join(element, target_raster_map)}\' already exists', flags='w')
                 if os.path.isdir(link) and unlinking:
-                    target_inode = os.stat(link).st_ino
-                    target_inode_hardlinks = os.stat(link).st_nlink
-
-                    if (
-                            pathlib.PurePosixPath(link).joinpath('r.InternalLink')
-                            in pathlib.Path(link).glob('**/r.InternalLink')
-                    ):
-                        if not os.path.islink(link):
-                            if not force:
-                                g.message(f'Directory \'{link}\' appears to be an r.internal product. Adding it to list of elements to unlink! Please Review!', flags='w')
-                                g.message('\n')
-                            elements_to_unlink.append(link)
+                    print("Link:", link)
+                    print()
+                    unlink_directory(
+                            directory=link,
+                            elements_to_unlink=elements_to_unlink,
+                            dry_run=dry_run,
+                            force=force,
+                    )
 
             # for cell_misc_element in os.listdir(target):
             for cell_misc_element in pathlib.Path(target).glob('**/*'):
