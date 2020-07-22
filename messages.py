@@ -1,0 +1,10 @@
+MESSAGE_DRY_RUN = " >>> Dry run: show intentions, yet do nothing!"
+MESSAGE_MAP_NOT_FOUND = "Can't find the {target} raster map"
+MESSAGE_DRY_UNLINKING = "The following links would be removed:"
+MESSAGE_UNLINKING_WARNING = "Nothing removed. "
+MESSAGE_UNLINKING_EMPTY_LIST = "There are no raster map files matching the input name to remove."
+MESSAGE_UNLINKING_WARNING += "You must use the force flag (-f) to actually unlink the specified hardlinked raster map files. "
+MESSAGE_UNLINKING_WARNING += "Exiting."
+MESSAGE_UNLINKING = "Removing linked raster map file "
+MESSAGE_UNLINKING_ADDITIONAL_INFORMATION = "No element directories removed. Please carefully remove such elements manually."
+MESSAGE_SOFTLINKING = 'Soft instead of hard linking requested'
