@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from devtools import debug
 """
  MODULE:       r.internal
 
@@ -149,9 +148,7 @@ def main():
         if link_raster_map_suffix:
             link += f'_{link_raster_map_suffix}'
             link = pathlib.Path(link)
-        # debug(locals())
 
-        # ----------------------------------------------------------------------
         if element in ELEMENTS:
             if os.path.isfile(target):  # excludes 'cell_misc' directory
                 if not unlinking:  # unlinking not requested
@@ -180,7 +177,6 @@ def main():
                             elements_to_unlink=elements_to_unlink,
                     )
 
-        # ----------------------------------------------------------------------
         if element == CELL_MISC:  # 'cell_misc' is a directory
             if (
                     not os.path.isdir(link)  # if directory does NOT exist
@@ -210,7 +206,6 @@ def main():
                             force=force,
                     )
 
-            # for cell_misc_element in os.listdir(target):
             for cell_misc_element in pathlib.Path(target).glob('**/*'):
                 cell_misc_element_basename = os.path.basename(cell_misc_element)
                 cell_misc_link = pathlib.PurePosixPath(link).joinpath(cell_misc_element_basename)
@@ -236,26 +231,24 @@ def main():
                             elements_to_unlink=elements_to_unlink,
                     )
 
-    # unlinking
-    if elements_to_unlink:
-        if unlinking:
-            if not force:
-                elements_to_unlink = [str(element) for element in elements_to_unlink]
-                elements_to_unlink.insert(0, MESSAGE_DRY_UNLINKING)
-                elements_to_unlink = f'{chr(10).join(elements_to_unlink)}'
-                g.message(elements_to_unlink)
-                g.message('\n')
-                g.message(MESSAGE_UNLINKING_WARNING, flags='w')
+    if unlinking:
+        if not force:
+            elements_to_unlink = [str(element) for element in elements_to_unlink]
+            elements_to_unlink.insert(0, MESSAGE_DRY_UNLINKING)
+            elements_to_unlink = f'{chr(10).join(elements_to_unlink)}'
+            g.message(elements_to_unlink)
+            g.message('\n')
+            g.message(MESSAGE_UNLINKING_WARNING, flags='w')
 
-            elif force:
-                for element in elements_to_unlink:
-                    unlinking_element = f'Removing link: {element}'
-                    g.message(unlinking_element, flags='i')
-                    if os.path.isdir(element):
-                        shutil.rmtree(element)
-                    if os.path.isfile(element):
-                        element=pathlib.Path(element)
-                        pathlib.Path.unlink(element)
+        elif force:
+            for element in elements_to_unlink:
+                unlinking_element = f'Removing link: {element}'
+                g.message(unlinking_element, flags='i')
+                if os.path.isdir(element):
+                    shutil.rmtree(element)
+                if os.path.isfile(element):
+                    element=pathlib.Path(element)
+                    pathlib.Path.unlink(element)
 
     elif elements_to_unlink == [] and unlinking:
         g.message(MESSAGE_UNLINKING_EMPTY_LIST, flags='i')
