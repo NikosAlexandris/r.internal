@@ -103,6 +103,9 @@ from messages import MESSAGE_UNLINKING_WARNING
 from messages import MESSAGE_UNLINKING_WARNING
 from messages import MESSAGE_UNLINKING
 from messages import MESSAGE_UNLINKING_ADDITIONAL_INFORMATION
+from messages import MESSAGE_ELEMENT_EXISTS
+from messages import MESSAGE_SUB_ELEMENT_EXISTS
+from messages import MESSAGE_META_ELEMENT_EXISTS
 from helpers import find_raster_map
 from helpers import get_mapset_path
 from linking import link_to_target
@@ -153,13 +156,18 @@ def main():
             if os.path.isfile(target):  # excludes 'cell_misc' directory
                 if not unlinking:  # unlinking not requested
                     if not os.path.isdir(element_path):  # create Element
-                        # g.message(f'Element: {element}', flags='v')
-                        g.message(f'+ Creating element directory {element_path}', flags='v')
+                        create_directory = MESSAGE_CREATE_DIRECTORY.format(
+                                path=element_path,
+                        )
+                        g.message(create_directory, flags='v')
                         if not dry_run:  # if dry run not requested
                             pathlib.Path.mkdir(element_path, parents=True)
                     elif os.path.isfile(link):
                         element = os.path.join(element, link)
-                        g.message(f'Element \'{element}\' already exists', flags='w')
+                        element_exists = MESSAGE_ELEMENT_EXISTS.format(
+                                element=element,
+                        )
+                        g.message(element_exists, flags='w')
                     if not os.path.isfile(link):  # if hardlink does not exist
                         link_to_target(
                                 target=target,
