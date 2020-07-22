@@ -127,7 +127,7 @@ def main():
     # options
     target_raster_map = options['input']
     target_mapset = options['mapset']
-    link_raster_map_suffix = options['suffix']
+    link_suffix = options['suffix']
 
     # raster map's whereabout
     raster_map_found = find_raster_map(
@@ -148,8 +148,8 @@ def main():
         element_path = os.path.join(CURRENT_MAPSET_PATH, element)
         target = os.path.join(target_mapset_path, element, target_raster_map)
         link = os.path.join(CURRENT_MAPSET_PATH, element, target_raster_map)
-        if link_raster_map_suffix:
-            link += f'_{link_raster_map_suffix}'
+        if link_suffix:
+            link += f'_{link_suffix}'
             link = pathlib.Path(link)
 
         if element in ELEMENTS:
