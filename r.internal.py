@@ -158,7 +158,7 @@ def main():
             if os.path.isfile(target):  # excludes 'cell_misc' directory
                 if not unlinking:  # unlinking not requested
                     if not os.path.isdir(element_path):  # create Element
-                        g.message(f'Element: {element}', flags='v')
+                        # g.message(f'Element: {element}', flags='v')
                         g.message(f'+ Creating element directory {element_path}', flags='v')
                         if not dry_run:  # if dry run not requested
                             pathlib.Path.mkdir(element_path, parents=True)
