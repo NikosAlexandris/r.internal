@@ -157,13 +157,9 @@ def main():
                         g.message(f'+ Creating element directory {element_path}', flags='v')
                         if not dry_run:  # if dry run not requested
                             pathlib.Path.mkdir(element_path, parents=True)
-                    else:
-                        if os.path.isfile(link):
-                            # map_exists_message = f'A raster map file with the name \'{target_raster_map}\' already exists!'
-                            # g.message(map_exists_message, flags='w')
-                            element = os.path.join(element, link)
-                            g.message(f'Element \'{element}\' already exists', flags='w')
-
+                    elif os.path.isfile(link):
+                        element = os.path.join(element, link)
+                        g.message(f'Element \'{element}\' already exists', flags='w')
                     if not os.path.isfile(link):  # if hardlink does not exist
                         link_to_target(
                                 target=target,
