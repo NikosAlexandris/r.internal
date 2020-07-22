@@ -4,6 +4,7 @@ import grass.script as grass
 from grass.script import CalledModuleError
 from messages import MESSAGE_MAP_NOT_FOUND
 
+
 def find_raster_map(raster_map, mapset):
     """
     """

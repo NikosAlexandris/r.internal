@@ -57,4 +57,3 @@ def unlink_directory(directory, elements_to_unlink, dry_run=True, force=False):
                 g.message(f'Directory \'{directory}\' appears to be an r.internal product. Adding it to list of elements to unlink! Please Review!', flags='w')
                 g.message('\n')
             elements_to_unlink.append(directory)
-
