@@ -140,7 +140,8 @@ def main():
             mapset=target_mapset,
     )
 
-    elements_to_unlink = [] # hold elemets to unlink
+    global elements_to_unlink  # hold elemets to unlink
+    elements_to_unlink = []
 
     # Loop over elements to hard-link to
     for element in ELEMENTS:
