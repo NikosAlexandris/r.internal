@@ -129,12 +129,6 @@ def main():
             raster_map=target_raster_map,
             mapset=target_mapset,
     )
-    # if not raster_map_found:
-    #     g.message(MESSAGE_MAP_NOT_FOUND, flags='e')
-    #     1/0
-    # else:
-    #     g.message(f'Input raster map: {raster_map_found}', flags='v')
-
     target_mapset_path = get_mapset_path(
             raster_map=target_raster_map,
             mapset=target_mapset,
