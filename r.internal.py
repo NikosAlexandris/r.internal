@@ -237,18 +237,12 @@ def main():
                         g.message(f'Meta-element \'{os.path.join(target_raster_map, cell_misc_element_basename)}\' already exists', flags='w')
 
                     if not os.path.isfile(cell_misc_link):  # if hardlink does not exist
-                        g.message(f'> Linking \'{cell_misc_element}\' to \'{cell_misc_link}\'', flags='v')
-                        if not dry_run:
-                            if softlinking:
-                                flag='-s'
-                            else:
-                                flag=''
-                            command = f'ln {flag} {cell_misc_element} {cell_misc_link}'
-                            command = shlex.split(command)
-                            try:
-                                subprocess.run(command)
-                            except subprocess.CalledProcessError as e:
-                                grass.fatal(e.output)
+                        link_to_target(
+                                target=cell_misc_element,
+                                link=cell_misc_link,
+                                dry_run=dry_run,
+                                softlinking=softlinking,
+                        )
                         g.message('\n', flags='v')
 
 
