@@ -106,6 +106,9 @@ from messages import MESSAGE_UNLINKING
 from messages import MESSAGE_UNLINKING_ADDITIONAL_INFORMATION
 from helpers import find_raster_map
 from helpers import get_mapset_path
+from linking import link_to_target
+from linking import unlink_for_target
+from linking import unlink_directory
 
 def main():
 
