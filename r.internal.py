@@ -106,6 +106,8 @@ from messages import MESSAGE_UNLINKING_ADDITIONAL_INFORMATION
 from messages import MESSAGE_ELEMENT_EXISTS
 from messages import MESSAGE_SUB_ELEMENT_EXISTS
 from messages import MESSAGE_META_ELEMENT_EXISTS
+from messages import MESSAGE_CREATE_ELEMENT_DIRECTORY
+from messages import MESSAGE_CREATE_SUBELEMENT_DIRECTORY
 from helpers import find_raster_map
 from helpers import get_mapset_path
 from linking import link_to_target
@@ -156,7 +158,7 @@ def main():
             if os.path.isfile(target):  # excludes 'cell_misc' directory
                 if not unlinking:  # unlinking not requested
                     if not os.path.isdir(element_path):  # create Element
-                        create_directory = MESSAGE_CREATE_DIRECTORY.format(
+                        create_directory = MESSAGE_CREATE_ELEMENT_DIRECTORY.format(
                                 path=element_path,
                         )
                         g.message(create_directory, flags='v')
@@ -190,7 +192,10 @@ def main():
                     not os.path.isdir(link)  # if directory does NOT exist
                     and not unlinking  # include only directories, i.e. 'cell_misc'
             ):
-                g.message(f'+ Creating sub-element directory \'{link}\'', flags='v')
+                create_subelement = MESSAGE_CREATE_SUBELEMENT_DIRECTORY.format(
+                        path=link,
+                )
+                g.message(create_subelement, flags='v')
                 if not dry_run:
                     pathlib.Path.mkdir(link, parents=True)
                     command = f'touch {link}/r.InternalLink'  # Chances this already exists?
