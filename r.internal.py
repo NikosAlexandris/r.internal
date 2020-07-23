@@ -146,9 +146,9 @@ def main():
 
     # Loop over elements to hard-link to
     for element in ELEMENTS:
-        element_target = os.path.join(CURRENT_MAPSET, element, target_raster_map)
+        element_target = pathlib.Path(CURRENT_MAPSET).joinpath(element, target_raster_map)
         element_path = pathlib.Path(CURRENT_MAPSET_PATH).joinpath(element)
-        target = os.path.join(target_mapset_path, element, target_raster_map)
+        target = pathlib.Path(target_mapset_path).joinpath(element, target_raster_map)
         link = os.path.join(CURRENT_MAPSET_PATH, element, target_raster_map)
         if link_suffix:
             link += f'_{link_suffix}'
