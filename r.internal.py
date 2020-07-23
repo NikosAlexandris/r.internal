@@ -147,7 +147,7 @@ def main():
     # Loop over elements to hard-link to
     for element in ELEMENTS:
         element_target = os.path.join(CURRENT_MAPSET, element, target_raster_map)
-        element_path = os.path.join(CURRENT_MAPSET_PATH, element)
+        element_path = pathlib.Path(CURRENT_MAPSET_PATH).joinpath(element)
         target = os.path.join(target_mapset_path, element, target_raster_map)
         link = os.path.join(CURRENT_MAPSET_PATH, element, target_raster_map)
         if link_suffix:
@@ -222,7 +222,7 @@ def main():
 
             for cell_misc_element in pathlib.Path(target).glob('**/*'):
                 cell_misc_element_basename = os.path.basename(cell_misc_element)
-                cell_misc_link = pathlib.PurePosixPath(link).joinpath(cell_misc_element_basename)
+                cell_misc_link = pathlib.Path(link).joinpath(cell_misc_element_basename)
 
                 if not unlinking:
                     if os.path.isdir(link) and os.path.isfile(cell_misc_link):
