@@ -158,7 +158,7 @@ def main():
         link = os.path.join(CURRENT_MAPSET_PATH, element, target_raster_map)
         if link_suffix:
             link += f'_{link_suffix}'
-            link = pathlib.Path(link)
+        link = pathlib.Path(link)
 
         if element in ELEMENTS:
             if os.path.isfile(target):  # excludes 'cell_misc' directory
