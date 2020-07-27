@@ -100,6 +100,7 @@ from constants import ELEMENTS
 from grassgis import CURRENT_MAPSET
 from grassgis import CURRENT_MAPSET_PATH
 from messages import MESSAGE_DRY_RUN
+from messages import MESSAGE_LINKING_INSIDE_TARGET_MAPSET
 from messages import MESSAGE_SOFT_LINKING
 from messages import MESSAGE_RELATIVE_LINKING
 from messages import MESSAGE_MAP_NOT_FOUND
@@ -136,6 +137,10 @@ def main():
     target_raster_map = options['input']
     target_mapset = options['mapset']
     link_suffix = options['suffix']
+    if not link_suffix:
+        if not unlinking:
+            if target_mapset == CURRENT_MAPSET:
+                grass.fatal(MESSAGE_LINKING_INSIDE_TARGET_MAPSET)
 
     # raster map's whereabout
     raster_map_found = find_raster_map(
