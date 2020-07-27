@@ -32,6 +32,11 @@
 #% end
 
 #% flag
+#%  key: r
+#%  description: Create symbolic links relative to link location
+#% end
+
+#% flag
 #%  key: u
 #%  description: Call the unlink function to remove hardlinked raster map files
 #% end
@@ -121,6 +126,7 @@ def main():
     if dry_run:
         g.message(MESSAGE_DRY_RUN, flags='i')
     softlinking = flags['s']
+    relative = flags['r']
     if softlinking:
         g.message(MESSAGE_SOFTLINKING, flags='i')
     unlinking = flags['u']
@@ -176,6 +182,7 @@ def main():
                                 link=link,
                                 dry_run=dry_run,
                                 softlinking=softlinking,
+                                relative=relative,
                         )
                         g.message('\n', flags='v')
 
@@ -237,6 +244,7 @@ def main():
                                 link=cell_misc_link,
                                 dry_run=dry_run,
                                 softlinking=softlinking,
+                                relative=relative,
                         )
                         g.message('\n', flags='v')
 
