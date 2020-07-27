@@ -3,7 +3,9 @@ MESSAGE_CREATE_SUBELEMENT_DIRECTORY = '+ Creating sub-element directory \'{path}
 MESSAGE_DRY_RUN = ' >>> Dry run: show intentions, yet do nothing!'
 MESSAGE_DRY_UNLINKING = 'The following links would be removed:'
 MESSAGE_MAP_NOT_FOUND = 'Can\'t find the {target} raster map'
-MESSAGE_SOFTLINKING = 'Soft instead of hard linking requested'
+MESSAGE_LINKING = 'Linking \'{target}\' to \'{link}\''
+MESSAGE_SOFT_LINKING = 'Soft ' + MESSAGE_LINKING
+MESSAGE_RELATIVE_LINKING = 'Relative ' + MESSAGE_SOFT_LINKING
 MESSAGE_UNLINKING = 'Removing linked raster map file '
 MESSAGE_UNLINKING_ADDITIONAL_INFORMATION = (
         'No element directories removed. '
