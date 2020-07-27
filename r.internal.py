@@ -99,7 +99,8 @@ from constants import ELEMENTS
 from grassgis import CURRENT_MAPSET
 from grassgis import CURRENT_MAPSET_PATH
 from messages import MESSAGE_DRY_RUN
-from messages import MESSAGE_SOFTLINKING
+from messages import MESSAGE_SOFT_LINKING
+from messages import MESSAGE_RELATIVE_LINKING
 from messages import MESSAGE_MAP_NOT_FOUND
 from messages import MESSAGE_DRY_UNLINKING
 from messages import MESSAGE_UNLINKING_WARNING
@@ -127,8 +128,6 @@ def main():
         g.message(MESSAGE_DRY_RUN, flags='i')
     softlinking = flags['s']
     relative = flags['r']
-    if softlinking:
-        g.message(MESSAGE_SOFTLINKING, flags='i')
     unlinking = flags['u']
     force = flags['f']
 
