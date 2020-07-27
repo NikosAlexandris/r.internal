@@ -1,3 +1,9 @@
+MESSAGE_LINKING_INSIDE_TARGET_MAPSET = (
+        'Linking an existing raster map '
+        'inside the same Mapset '
+        'without a \'suffix\' '
+        'is not allowed!'
+)
 MESSAGE_CREATE_ELEMENT_DIRECTORY = '+ Creating element directory \'{path}\''
 MESSAGE_CREATE_SUBELEMENT_DIRECTORY = '+ Creating sub-element directory \'{path}\''
 MESSAGE_DRY_RUN = ' >>> Dry run: show intentions, yet do nothing!'
