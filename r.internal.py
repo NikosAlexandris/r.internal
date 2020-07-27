@@ -48,6 +48,7 @@
 
 #% rules
 #%  excludes: -s, -u
+#%  requires: -r, -s
 #%  excludes: -s, -f
 #%  requires: -f, -u
 #%  excludes: -f, -d
