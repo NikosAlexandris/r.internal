@@ -1,23 +1,60 @@
+from devtools import debug
+
 import os
 import shlex
 import subprocess
 import pathlib
 from grass.pygrass.modules.shortcuts import general as g
+from messages import MESSAGE_LINKING
+from messages import MESSAGE_SOFT_LINKING
+from messages import MESSAGE_RELATIVE_LINKING
 
 
-def link_to_target(target, link, dry_run=True, softlinking=''):
+def link_to_target(
+        target,
+        link,
+        dry_run=True,
+        softlinking='',
+        relative=False
+    ):
     """
+    This function creates the requested 'link' to the 'target' file.
+    This function does not return anything.
+
+    Parameters
+    ----------
+    target :
+        The target file to link to
+
+    link :
+        The link file to create
+
+    dry_run :
+        A boolean flag on whether to actually perform the linking or not
+
+    softlinking :
+        An empty string or the '-s' string passed to the actual command's
+        'flags' option to define whether linking softly or not.
+
+    relative :
+        A boolean flag to define whether to create relative links
     """
+    linking_message = MESSAGE_LINKING
+    if softlinking:
+        linking_message = MESSAGE_SOFT_LINKING
+        if relative:
+            linking_message = MESSAGE_RELATIVE_LINKING
     g.message(
-            f'Linking \'{target}\' to \'{link}\'',
+            linking_message.format(target=target, link=link),
             flags='v',
     )
     if not dry_run:
+        flags=''
         if softlinking:
-            flag = '-s'
-        else:
-            flag = ''
-        command = f'ln {flag} {target} {link}'
+            flags += '-s'
+            if relative:
+                flags += 'r'
+        command = f'ln {flags} {target} {link}'
         command = shlex.split(command)
         try:
             subprocess.run(command)
