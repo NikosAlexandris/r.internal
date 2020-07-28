@@ -6,7 +6,9 @@ from grass.pygrass.modules.shortcuts import general as g
 from messages import MESSAGE_LINKING
 from messages import MESSAGE_SOFT_LINKING
 from messages import MESSAGE_RELATIVE_LINKING
-
+from messages import MESSAGE_WILL_NOT_UNLINK
+from messages import MESSAGE_REVIEW_UNLINKING_DIRECTORY
+from messages import MESSAGE_NO_RASTER_MAP
 
 def link_to_target(
         target,
@@ -70,14 +72,20 @@ def unlink_for_target(target, link, elements_to_unlink, dry_run=True):
                 element = 'meta-element/file'
             else:
                 element = 'element/map'
-            g.message(f'The {element} \'{link}\' is the only hardlink for the inode \'{target_inode}\'. Will NOT unlink!', flags='i')
+            will_not_unlink = MESSAGE_WILL_NOT_UNLINK.format(
+                                element=element,
+                                link=link,
+                                target_inode=target_inode,
+                              )
+            g.message(will_not_unlink, flags='i')
             g.message('\n', flags='i')
 
         elif os.path.islink(link) or target_inode_hardlinks > 1:
             if not dry_run:
                 elements_to_unlink.append(link)
     else:
-        g.message(f'There is no raster map file \'{link}\' to remove', flags='v')
+        no_raster_map = MESSAGE_NO_RASTER_MAP.format(link=link)
+        g.message(no_raster_map, flags='v')
 
 
 def unlink_directory(directory, elements_to_unlink, dry_run=True, force=False):
@@ -89,6 +97,9 @@ def unlink_directory(directory, elements_to_unlink, dry_run=True, force=False):
     ):
         if not os.path.islink(directory):
             if not force:
-                g.message(f'Directory \'{directory}\' appears to be an r.internal product. Adding it to list of elements to unlink! Please Review!', flags='w')
+                review_unlinking_directory = MESSAGE_REVIEW_UNLINKING_DIRECTORY.format(
+                                                directory=directory
+                                             )
+                g.message(review_unlinking_directory, flags='w')
                 g.message('\n')
             elements_to_unlink.append(directory)
