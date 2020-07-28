@@ -40,17 +40,25 @@ as it links to the underlying `inode`
 #### +
 
 [+] share the same inode
+
 [+] have the size of the content
+
 [+] take less disk space as they only take up a directory entry
+
 [+] require negligible amount of space (a few bytes), as there are no new
 inodes created while creating hard links.
 [+] take less time to resolve
+
 [+] performance will be slightly better while accessing directly the disk
 pointer instead of going through another file
+
 [+] moving the source file to another location, on the same filesystem, will
 not break the link
+
 [+] redundancy: data are not deleted until all links to the files are deleted
+
 [+] useful when the original file is moved
+
 [+] Hard links, on the same file system, are always resolved in a single
 look-up, and never involve network latency (if it's a hardlink on an NFS
 filesystem, the NFS server would do the resolution, and it would be invisible
@@ -70,9 +78,11 @@ being able to access it."
 
 [-] can't cross file systems: different inode indexing across difference file
 systems
+
 [-] you need to explore the whole file system to find files sharing the same
 inode
 [-] hard-links cannot point to directories.
+
 [-] can "break" if the original file is recreated instead of modified
 in-place--a new inode will be created, but the hard link will still point to
 the old inode.
@@ -86,16 +96,22 @@ the old inode.
 #### +
 
 [+] show instantly the full path they point to
+
 [+] can cross file systems: a soft link contains the full path pointing to
 another file
 
 #### -
 
 [-] need their own inode to store the name they point to
+
 [-] have the file name size [?]
+
 [-] consume space (usually 4KB, depending upon the filesystem)
+
 [-] symlink to files that are/will be moved are/will be broken
+
 [-] can point to other symlinks that are in symlinked directories
+
 [-] symbolic links pointing to symbolic links that are on high-latency file
 systems, could result in network traffic to resolve
 
